@@ -4,7 +4,7 @@ Update this file whenever the current phase, active feature, or implementation s
 
 ## Current Phase
 
-- Authentication feature complete
+- Prisma schema and data layer complete
 
 ## Current Goal
 
@@ -15,6 +15,8 @@ Update this file whenever the current phase, active feature, or implementation s
 - Implemented feature spec 01: design system and UI primitives.
 - Implemented feature spec 02: editor chrome.
 - Implemented feature spec 03: Clerk authentication, route protection, auth redirects, and the editor user menu.
+- Implemented feature spec 04: editor home empty state, project create/rename/delete dialogs, owned project sidebar actions, and mobile sidebar scrim dismissal behavior using mock data only.
+- Implemented feature spec 05: project and collaborator Prisma models, cached Prisma client singleton, first migration, generated client, and build validation.
 - Installed and configured shadcn/ui with the Radix component library.
 - Added `Button`, `Card`, `Dialog`, `Input`, `Tabs`, `Textarea`, and `ScrollArea` primitives in `components/ui/`.
 - Installed `lucide-react`.
@@ -44,6 +46,14 @@ Update this file whenever the current phase, active feature, or implementation s
 ## Session Notes
 
 - Root `AGENTS.md` was read; `context/AGENTS.md` is not present in this checkout.
+- Feature spec 05 was started on June 2, 2026 and covers the project/collaborator Prisma models, cached Prisma client singleton, first migration, and build validation.
+- Feature spec 05 migration `20260602171922_init` was created and applied on June 2, 2026.
+- Feature spec 05 validation passed on June 2, 2026: `npx prisma format`, `npx prisma validate`, `npx prisma generate`, `npx tsc --noEmit`, `npm run build`, and `npm run lint` succeeded.
+- Prisma CLI commands were run with Node `v22.20.0`; the default shell Node `v20.9.0` is below Prisma 7.8's supported range and failed before schema loading.
+- The first feature spec 05 build attempt failed in the sandbox because `next/font` could not fetch Google Fonts; the approved retry with network access passed.
+- Feature spec 04 was started on June 1, 2026 and covers the `/editor` empty state, project create/rename/delete dialogs, owned-vs-shared sidebar actions, and mobile sidebar dismissal behavior.
+- Feature spec 04 validation passed on June 1, 2026: `npm run lint`, `npx tsc --noEmit`, and `npm run build` succeeded.
+- The first feature spec 04 build attempt failed in the sandbox because `next/font` could not fetch Google Fonts; the approved retry with network access passed.
 - Validation passed: `npm run lint`, `npx tsc --noEmit`, and `npm run build`.
 - The first build attempt failed because sandboxed network access blocked `next/font` Google font downloads; the approved retry passed.
 - Local server verification used the existing Next dev server at `http://127.0.0.1:3000`, which returned `Ghost AI` and no create-next-app text.
