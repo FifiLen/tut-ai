@@ -1,5 +1,5 @@
-import { EditorWorkspaceShell } from "@/components/editor/editor-workspace-shell"
+import { redirect } from "next/navigation"
 
 export default function Home() {
-  return <EditorWorkspaceShell />
+  redirect("/editor")
 }
