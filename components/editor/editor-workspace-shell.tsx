@@ -7,11 +7,26 @@ import { ProjectDialogs } from "@/components/editor/project-dialogs"
 import { EditorNavbar } from "@/components/editor/editor-navbar"
 import { ProjectSidebar } from "@/components/editor/project-sidebar"
 import { Button } from "@/components/ui/button"
-import { useProjectDialogs } from "@/hooks/use-project-dialogs"
+import { useProjectActions } from "@/hooks/use-project-actions"
+import type { EditorProject } from "@/types/project"
 
-export function EditorWorkspaceShell() {
+interface EditorWorkspaceShellProps {
+  currentProjectId: string | null
+  ownedProjects: EditorProject[]
+  sharedProjects: EditorProject[]
+}
+
+export function EditorWorkspaceShell({
+  currentProjectId,
+  ownedProjects,
+  sharedProjects,
+}: EditorWorkspaceShellProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
-  const projectDialogs = useProjectDialogs()
+  const projectActions = useProjectActions({
+    currentProjectId,
+    ownedProjects,
+    sharedProjects,
+  })
 
   return (
     <div className="flex min-h-screen flex-col bg-base">
@@ -21,14 +36,15 @@ export function EditorWorkspaceShell() {
       />
       <main className="relative flex-1 overflow-hidden">
         <ProjectSidebar
-          currentProjectId={projectDialogs.currentProjectId}
+          currentProjectId={projectActions.currentProjectId}
           isOpen={isSidebarOpen}
           onClose={() => setIsSidebarOpen(false)}
-          onCreateProject={projectDialogs.openCreateDialog}
-          onDeleteProject={projectDialogs.openDeleteDialog}
-          onRenameProject={projectDialogs.openRenameDialog}
-          onSelectProject={projectDialogs.selectProject}
-          projects={projectDialogs.projects}
+          onCreateProject={projectActions.openCreateDialog}
+          onDeleteProject={projectActions.openDeleteDialog}
+          onRenameProject={projectActions.openRenameDialog}
+          onSelectProject={projectActions.selectProject}
+          ownedProjects={ownedProjects}
+          sharedProjects={sharedProjects}
         />
         <div className="flex h-full min-h-[calc(100vh-3.5rem)] items-center justify-center p-6">
           <div className="flex w-full max-w-2xl flex-col items-center justify-center text-center">
@@ -42,7 +58,7 @@ export function EditorWorkspaceShell() {
             <Button
               className="mt-8"
               size="lg"
-              onClick={projectDialogs.openCreateDialog}
+              onClick={projectActions.openCreateDialog}
             >
               <Plus className="h-5 w-5" />
               New Project
@@ -50,7 +66,7 @@ export function EditorWorkspaceShell() {
           </div>
         </div>
       </main>
-      <ProjectDialogs dialogs={projectDialogs} />
+      <ProjectDialogs dialogs={projectActions} />
     </div>
   )
 }
