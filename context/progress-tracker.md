@@ -4,7 +4,7 @@ Update this file whenever the current phase, active feature, or implementation s
 
 ## Current Phase
 
-- Prisma schema and data layer complete
+- Editor home wired to real project data
 
 ## Current Goal
 
@@ -12,11 +12,13 @@ Update this file whenever the current phase, active feature, or implementation s
 
 ## Completed
 
+- Implemented feature spec 07: server-fetched owned/shared editor projects, real create/rename/delete mutations, room ID previews, and workspace navigation.
 - Implemented feature spec 01: design system and UI primitives.
 - Implemented feature spec 02: editor chrome.
 - Implemented feature spec 03: Clerk authentication, route protection, auth redirects, and the editor user menu.
 - Implemented feature spec 04: editor home empty state, project create/rename/delete dialogs, owned project sidebar actions, and mobile sidebar scrim dismissal behavior using mock data only.
 - Implemented feature spec 05: project and collaborator Prisma models, cached Prisma client singleton, first migration, generated client, and build validation.
+- Implemented feature spec 06: backend-only project list/create/rename/delete REST endpoints with Clerk authentication, owner-scoped listing, owner-only rename/delete checks, and route-owned `401`/`403` JSON responses.
 - Installed and configured shadcn/ui with the Radix component library.
 - Added `Button`, `Card`, `Dialog`, `Input`, `Tabs`, `Textarea`, and `ScrollArea` primitives in `components/ui/`.
 - Installed `lucide-react`.
@@ -45,6 +47,12 @@ Update this file whenever the current phase, active feature, or implementation s
 
 ## Session Notes
 
+- Feature spec 07 was started and completed on June 2, 2026 and covers server-side project loading for `/editor` and `/editor/[projectId]`, a `useProjectActions` mutation hook, create room/project ID alignment, and real sidebar/dialog wiring.
+- Feature spec 07 validation passed on June 2, 2026: `npm run lint`, `npx tsc --noEmit`, and `npm run build`.
+- The first feature spec 07 build attempt failed in the sandbox because `next/font` could not fetch Google Fonts; the approved retry with network access passed.
+- Feature spec 06 was started and completed on June 2, 2026 and covers `GET /api/projects`, `POST /api/projects`, `PATCH /api/projects/[projectId]`, and `DELETE /api/projects/[projectId]`.
+- Feature spec 06 validation passed on June 2, 2026: `npm run lint`, `npx tsc --noEmit`, `npm run build`, and local unauthenticated smoke checks for all four project API methods returned `401`.
+- The first feature spec 06 build attempt failed in the sandbox because `next/font` could not fetch Google Fonts; the approved retry with network access passed.
 - Root `AGENTS.md` was read; `context/AGENTS.md` is not present in this checkout.
 - Feature spec 05 was started on June 2, 2026 and covers the project/collaborator Prisma models, cached Prisma client singleton, first migration, and build validation.
 - Feature spec 05 migration `20260602171922_init` was created and applied on June 2, 2026.

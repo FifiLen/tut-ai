@@ -9,11 +9,11 @@ import { EditorDialogShell } from "@/components/editor/editor-dialog-shell"
 
 import type {
   ProjectDialogType,
-  UseProjectDialogsResult,
-} from "@/hooks/use-project-dialogs"
+  UseProjectActionsResult,
+} from "@/hooks/use-project-actions"
 
 interface ProjectDialogsProps {
-  dialogs: UseProjectDialogsResult
+  dialogs: UseProjectActionsResult
 }
 
 export function ProjectDialogs({ dialogs }: ProjectDialogsProps) {
@@ -31,7 +31,7 @@ export function ProjectDialogs({ dialogs }: ProjectDialogsProps) {
             onChange={dialogs.setProjectName}
             autoFocus
           />
-          <SlugPreview slug={dialogs.slugPreview} />
+          <RoomIdPreview roomId={dialogs.roomIdPreview} />
           <DialogActions
             isSubmitting={dialogs.isSubmitting}
             submitLabel="Create Project"
@@ -55,7 +55,6 @@ export function ProjectDialogs({ dialogs }: ProjectDialogsProps) {
             onChange={dialogs.setProjectName}
             autoFocus
           />
-          <SlugPreview slug={dialogs.slugPreview} />
           <DialogActions
             isSubmitting={dialogs.isSubmitting}
             submitLabel="Save Changes"
@@ -75,7 +74,7 @@ export function ProjectDialogs({ dialogs }: ProjectDialogsProps) {
       >
         <div className="space-y-5">
           <p className="text-sm text-copy-secondary">
-            This removes the project from the current mock workspace list.
+            This removes the project and its workspace record.
           </p>
           <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
             <Button
@@ -105,7 +104,7 @@ interface ProjectDialogRootProps {
   children: ReactNode
   description?: string
   dialogType: ProjectDialogType
-  dialogs: UseProjectDialogsResult
+  dialogs: UseProjectActionsResult
   title: string
 }
 
@@ -156,14 +155,14 @@ function ProjectNameField({
   )
 }
 
-function SlugPreview({ slug }: { slug: string }) {
+function RoomIdPreview({ roomId }: { roomId: string }) {
   return (
     <div className="rounded-2xl border border-surface-border bg-subtle/60 px-4 py-3">
       <p className="text-xs font-medium tracking-[0.14em] text-copy-faint uppercase">
-        Slug preview
+        Room ID preview
       </p>
       <p className="mt-2 text-sm text-copy-secondary">
-        /projects/<span className="text-copy-primary">{slug}</span>
+        /editor/<span className="text-copy-primary">{roomId}</span>
       </p>
     </div>
   )

@@ -5,8 +5,8 @@ import { FolderOpen, Pencil, Plus, Trash2, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import type { ProjectRecord } from "@/hooks/use-project-dialogs"
 import { cn } from "@/lib/utils"
+import type { EditorProject } from "@/types/project"
 
 interface ProjectSidebarProps {
   currentProjectId: string | null
@@ -16,7 +16,8 @@ interface ProjectSidebarProps {
   onDeleteProject: (projectId: string) => void
   onRenameProject: (projectId: string) => void
   onSelectProject: (projectId: string) => void
-  projects: ProjectRecord[]
+  ownedProjects: EditorProject[]
+  sharedProjects: EditorProject[]
 }
 
 export function ProjectSidebar({
@@ -27,13 +28,9 @@ export function ProjectSidebar({
   onDeleteProject,
   onRenameProject,
   onSelectProject,
-  projects,
+  ownedProjects,
+  sharedProjects,
 }: ProjectSidebarProps) {
-  const ownedProjects = projects.filter((project) => project.ownership === "owned")
-  const sharedProjects = projects.filter(
-    (project) => project.ownership === "shared",
-  )
-
   return (
     <>
       <button
@@ -127,7 +124,7 @@ interface ProjectListProps {
   onDeleteProject: (projectId: string) => void
   onRenameProject: (projectId: string) => void
   onSelectProject: (projectId: string) => void
-  projects: ProjectRecord[]
+  projects: EditorProject[]
 }
 
 function ProjectList({
@@ -173,7 +170,7 @@ function ProjectList({
                     </p>
                   </div>
                   <p className="mt-2 truncate text-xs text-copy-muted">
-                    /projects/{project.slug}
+                    /editor/{project.id}
                   </p>
                   {project.role ? (
                     <p className="mt-1 text-xs text-copy-faint">{project.role}</p>
